@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <defs>
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <filter id="dropGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#10B981" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background Rounded Shield/Card -->
+  <rect x="2" y="2" width="44" height="44" rx="10" fill="#0F172A" stroke="#1E293B" stroke-width="1.5"/>
+  
+  <!-- Document Folded Sheet Outline -->
+  <path d="M12 8C12 6.89543 12.8954 6 14 6H26L36 16V40C36 41.1046 35.1046 42 34 42H14C12.8954 42 12 41.1046 12 40V8Z" fill="url(#primaryGrad)" filter="url(#dropGlow)"/>
+  <path d="M26 6L36 16H28C26.8954 16 26 15.1046 26 14V6Z" fill="#047857"/>
+  
+  <!-- Excel Grid Cells Representation -->
+  <rect x="17" y="21" width="6" height="4" rx="0.75" fill="#FFFFFF" opacity="0.95"/>
+  <rect x="25" y="21" width="6" height="4" rx="0.75" fill="#FFFFFF" opacity="0.95"/>
+  <rect x="17" y="27" width="6" height="4" rx="0.75" fill="#FFFFFF" opacity="0.95"/>
+  <rect x="25" y="27" width="6" height="4" rx="0.75" fill="#FFFFFF" opacity="0.95"/>
+  <rect x="17" y="33" width="6" height="4" rx="0.75" fill="#FFFFFF" opacity="0.95"/>
+  <rect x="25" y="33" width="6" height="4" rx="0.75" fill="#FFFFFF" opacity="0.95"/>
+  
+  <!-- "X" Badge for Excel Spreadsheets -->
+  <circle cx="34" cy="34" r="8" fill="#10B981" stroke="#0F172A" stroke-width="2"/>
+  <path d="M31 31L37 37M37 31L31 37" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+</svg>

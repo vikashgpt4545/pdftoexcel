@@ -1,0 +1,19 @@
+{
+  "name": "PDF to Excel Converter - 100% Free Online",
+  "short_name": "PDFtoExcel",
+  "description": "Convert PDF documents to Microsoft Excel spreadsheets (.xlsx, .xls, .csv) with 100% table and formatting accuracy.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0F19",
+  "theme_color": "#10B981",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/images/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["utilities", "productivity", "business"]
+}
