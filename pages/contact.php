@@ -52,26 +52,28 @@ require_once __DIR__ . '/../includes/header.php';
             <div class="converter-card" style="max-width: 680px; margin: 0 auto; padding: 2.5rem;">
                 <div id="contactFormWrapper">
                     <h3 style="margin-bottom: 1.25rem;">Send Us a Message</h3>
-                    <form id="contactForm" onsubmit="event.preventDefault(); document.getElementById('contactFormWrapper').style.display = 'none'; document.getElementById('contactSuccessWrapper').style.display = 'block';">
+                    <div id="contactErrorBanner" style="display: none; color: #ef4444; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.25); border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; line-height: 1.5;"></div>
+                    <form id="contactForm">
+                        <input type="text" name="company_website" id="contactCompanyWebsite" style="display:none !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                             <div>
-                                <label style="display: block; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.4rem;">Your Name</label>
-                                <input type="text" required placeholder="Alex Johnson" style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-main); font-family: inherit;">
+                                <label for="contactName" style="display: block; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.4rem;">Your Name</label>
+                                <input type="text" id="contactName" name="name" required placeholder="Alex Johnson" style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-main); font-family: inherit;">
                             </div>
                             <div>
-                                <label style="display: block; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.4rem;">Email Address</label>
-                                <input type="email" required placeholder="alex@company.com" style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-main); font-family: inherit;">
+                                <label for="contactEmail" style="display: block; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.4rem;">Email Address</label>
+                                <input type="email" id="contactEmail" name="email" required placeholder="alex@company.com" style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-main); font-family: inherit;">
                             </div>
                         </div>
                         <div style="margin-bottom: 1rem;">
-                            <label style="display: block; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.4rem;">Subject</label>
-                            <input type="text" required placeholder="Question about table conversion" style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-main); font-family: inherit;">
+                            <label for="contactSubject" style="display: block; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.4rem;">Subject</label>
+                            <input type="text" id="contactSubject" name="subject" required placeholder="Question about table conversion" style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-main); font-family: inherit;">
                         </div>
                         <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.4rem;">Message</label>
-                            <textarea required rows="4" placeholder="How can we assist you?" style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-main); font-family: inherit; resize: vertical;"></textarea>
+                            <label for="contactMessage" style="display: block; font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.4rem;">Message</label>
+                            <textarea id="contactMessage" name="message" required rows="4" placeholder="How can we assist you?" style="width: 100%; padding: 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-main); font-family: inherit; resize: vertical;"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-upload" style="width: 100%; border: none; cursor: pointer;">
+                        <button type="submit" id="contactSubmitBtn" class="btn btn-upload" style="width: 100%; border: none; cursor: pointer;">
                             Submit Inquiry
                         </button>
                     </form>
@@ -85,7 +87,7 @@ require_once __DIR__ . '/../includes/header.php';
                     <p style="color: var(--text-muted); max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6;">
                         Thank you for contacting PDFtoExcel.in. An engineering specialist will review your document technical query and follow up at your email address within 24 business hours.
                     </p>
-                    <button type="button" class="btn btn-secondary" onclick="document.getElementById('contactSuccessWrapper').style.display = 'none'; document.getElementById('contactFormWrapper').style.display = 'block'; document.getElementById('contactForm').reset();">
+                    <button type="button" id="resetContactBtn" class="btn btn-secondary">
                         Send Another Inquiry
                     </button>
                 </div>
@@ -93,5 +95,113 @@ require_once __DIR__ . '/../includes/header.php';
         </div>
     </section>
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('contactForm');
+    var submitBtn = document.getElementById('contactSubmitBtn');
+    var errorBanner = document.getElementById('contactErrorBanner');
+    var formWrapper = document.getElementById('contactFormWrapper');
+    var successWrapper = document.getElementById('contactSuccessWrapper');
+    var resetBtn = document.getElementById('resetContactBtn');
+
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (errorBanner) {
+                errorBanner.style.display = 'none';
+                errorBanner.textContent = '';
+            }
+
+            var nameInput = document.getElementById('contactName');
+            var emailInput = document.getElementById('contactEmail');
+            var subjectInput = document.getElementById('contactSubject');
+            var messageInput = document.getElementById('contactMessage');
+            var honeypotInput = document.getElementById('contactCompanyWebsite');
+
+            var name = nameInput ? nameInput.value.trim() : '';
+            var email = emailInput ? emailInput.value.trim() : '';
+            var subject = subjectInput ? subjectInput.value.trim() : '';
+            var message = messageInput ? messageInput.value.trim() : '';
+            var honeypot = honeypotInput ? honeypotInput.value : '';
+
+            if (!name || !email || !subject || !message) {
+                if (errorBanner) {
+                    errorBanner.textContent = 'Please fill out all required fields.';
+                    errorBanner.style.display = 'block';
+                }
+                return;
+            }
+
+            var originalBtnHtml = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+            submitBtn.style.cursor = 'not-allowed';
+            submitBtn.innerHTML = 'Sending Inquiry...';
+
+            fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message,
+                    company_website: honeypot
+                })
+            })
+            .then(function(res) {
+                return res.json().then(function(data) {
+                    return { status: res.status, ok: res.ok, data: data };
+                }).catch(function() {
+                    return { status: res.status, ok: res.ok, data: { message: 'Server response error' } };
+                });
+            })
+            .then(function(result) {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '';
+                submitBtn.style.cursor = 'pointer';
+                submitBtn.innerHTML = originalBtnHtml;
+
+                if (result.ok && result.data && result.data.status === 'success') {
+                    formWrapper.style.display = 'none';
+                    successWrapper.style.display = 'block';
+                } else {
+                    var errMsg = (result.data && result.data.message) ? result.data.message : 'Unable to submit your inquiry. Please try again.';
+                    if (errorBanner) {
+                        errorBanner.textContent = errMsg;
+                        errorBanner.style.display = 'block';
+                    }
+                }
+            })
+            .catch(function(err) {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '';
+                submitBtn.style.cursor = 'pointer';
+                submitBtn.innerHTML = originalBtnHtml;
+                if (errorBanner) {
+                    errorBanner.textContent = 'Network error connecting to the support server. Please check your connection or email support@pdftoexcel.in directly.';
+                    errorBanner.style.display = 'block';
+                }
+            });
+        });
+    }
+
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+            if (errorBanner) {
+                errorBanner.style.display = 'none';
+                errorBanner.textContent = '';
+            }
+            if (form) form.reset();
+            if (successWrapper) successWrapper.style.display = 'none';
+            if (formWrapper) formWrapper.style.display = 'block';
+        });
+    }
+});
+</script>
 
 <?php require_once __DIR__ . '/../includes/footer.php'; ?>

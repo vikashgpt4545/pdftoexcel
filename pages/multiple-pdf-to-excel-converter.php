@@ -295,7 +295,7 @@ require __DIR__ . '/../includes/header.php';
                 </div>
 
                 <p>
-                    Whenever analysts need to <strong>batch convert pdf to excel</strong> documents without technical complexity, PDFtoExcel.in delivers unmatched throughput and surgical tabular accuracy.
+                    Whenever analysts need to <strong>batch convert pdf to excel</strong> documents without technical complexity, PDFtoExcel.in delivers unmatched throughput and surgical tabular accuracy. If you are dealing with massive individual documents exceeding 50MB or hundreds of pages rather than multiple small files, use our specialized <a href="/large-pdf-to-excel-converter"><strong>Large PDF to Excel Converter (50MB+)</strong></a> engineered with high-memory streaming buffers. Working with text-heavy documentation containing embedded tables? You can also use our <a href="/word-to-excel"><strong>Word to Excel converter</strong></a> to extract tables directly from DOCX files into clean worksheets.
                 </p>
 
                 <h3>Reverse Workflows: Bulk Excel to PDF Conversion</h3>

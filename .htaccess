@@ -16,6 +16,17 @@ Options +FollowSymLinks
     RewriteCond %{HTTP_HOST} !^127\.0\.0\.1 [NC]
     RewriteRule ^(.*)$ https://pdftoexcel.in/$1 [L,R=301]
 
+    # Redirect index.php to canonical root
+    RewriteCond %{THE_REQUEST} \s/index\.php[\s?] [NC]
+    RewriteRule ^index\.php$ https://pdftoexcel.in/ [R=301,L]
+
+    # Redirect direct requests to /pages/*.php to clean URLs
+    RewriteCond %{THE_REQUEST} \s/pages/([a-zA-Z0-9_-]+)\.php[\s?] [NC]
+    RewriteRule ^ /%1 [R=301,L]
+
+    # Block direct HTTP access to data and includes directories
+    RewriteRule ^(data|includes)/ - [F,L]
+
     # Remove trailing slashes (except for root)
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.+)/$ /$1 [L,R=301]
@@ -47,6 +58,7 @@ Options +FollowSymLinks
 
 # Security Headers
 <IfModule mod_headers.c>
+    Header unset X-Powered-By
     Header set X-Content-Type-Options "nosniff"
     Header set X-Frame-Options "SAMEORIGIN"
     Header set X-XSS-Protection "1; mode=block"
@@ -57,6 +69,5 @@ Options +FollowSymLinks
 
 # Protect Sensitive Data and SQLite Databases
 <FilesMatch "\.(sqlite|sql|log|env|bak)$">
-    Order allow,deny
-    Deny from all
+    Require all denied
 </FilesMatch>

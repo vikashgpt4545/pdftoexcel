@@ -81,11 +81,13 @@
         </div>
     </footer>
 
+    <?php if (!empty($toolConfig)): ?>
     <!-- High-Performance Client Document Engines -->
     <script src="/assets/js/vendor/pdf.min.js" defer></script>
     <script src="/assets/js/vendor/xlsx.full.min.js" defer></script>
     <!-- Universal Converter JavaScript -->
     <script src="/assets/js/converter.js" defer></script>
+    <?php endif; ?>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const toggle = document.getElementById('mobileToggle');

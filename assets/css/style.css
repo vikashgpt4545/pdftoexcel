@@ -277,6 +277,7 @@ a:hover {
 .hero-title .gradient-text {
     background: linear-gradient(135deg, #10B981 0%, #38BDF8 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 

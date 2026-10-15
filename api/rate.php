@@ -13,6 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// Rate limiting: Max 15 ratings per minute per IP
+if (!Database::checkRateLimit('rate', 15, 60)) {
+    http_response_code(429);
+    echo json_encode(['status' => 'error', 'message' => 'Rate limit exceeded. Please wait a moment.']);
+    exit;
+}
+
 $input = json_decode(file_get_contents('php://input'), true) ?? $_POST;
 
 $pageUrl = filter_var($input['url'] ?? '/', FILTER_SANITIZE_URL);

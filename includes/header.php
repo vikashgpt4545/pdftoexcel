@@ -19,8 +19,17 @@ $faqs = $faqs ?? [];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle) ?></title>
     <meta name="description" content="<?= htmlspecialchars($pageDesc) ?>">
+    <?php if (!empty($is404)): ?>
+    <meta name="robots" content="noindex, nofollow">
+    <?php else: ?>
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <?php if (!empty($canonicalUrl)): ?>
     <link rel="canonical" href="<?= htmlspecialchars($canonicalUrl) ?>">
+    <?php endif; ?>
+    <?php endif; ?>
+    
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="google15909bbf880633d1">
     
     <!-- PWA & Mobile Web App Capabilities -->
     <meta name="theme-color" content="#10B981">
@@ -69,33 +78,42 @@ $faqs = $faqs ?? [];
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <?php if (!empty($canonicalUrl)): ?>
     <meta property="og:url" content="<?= htmlspecialchars($canonicalUrl) ?>">
+    <?php endif; ?>
     <meta property="og:title" content="<?= htmlspecialchars($pageTitle) ?>">
     <meta property="og:description" content="<?= htmlspecialchars($pageDesc) ?>">
     <meta property="og:site_name" content="PDFtoExcel.in">
     <meta property="og:image" content="https://pdftoexcel.in/assets/images/og-preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="PDFtoExcel.in - Free Online Document Tools">
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
+    <?php if (!empty($canonicalUrl)): ?>
     <meta name="twitter:url" content="<?= htmlspecialchars($canonicalUrl) ?>">
+    <?php endif; ?>
     <meta name="twitter:title" content="<?= htmlspecialchars($pageTitle) ?>">
     <meta name="twitter:description" content="<?= htmlspecialchars($pageDesc) ?>">
     <meta name="twitter:image" content="https://pdftoexcel.in/assets/images/og-preview.png">
 
-    <!-- Fonts & Core Styles -->
+    <!-- Fonts & Core Styles (Optimized Payload) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css?v=<?= @filemtime(__DIR__ . '/../assets/css/style.css') ?: time() ?>">
 
     <!-- JSON-LD Structured Data -->
     <?= renderJsonLdSchema([
         'title' => $pageTitle,
         'description' => $pageDesc,
-        'url' => $canonicalUrl,
+        'url' => $canonicalUrl ?: 'https://pdftoexcel.in/',
         'tool_name' => $toolName,
         'keywords' => $allMetaKeywords,
-        'faqs' => $faqs
+        'faqs' => $faqs,
+        'is404' => !empty($is404)
     ]) ?>
 </head>
 <body>

@@ -22,7 +22,20 @@ if ($route === 'sitemap.xml') {
     if (file_exists(__DIR__ . '/sitemap.xml')) {
         readfile(__DIR__ . '/sitemap.xml');
     } else {
-        require __DIR__ . '/includes/generate-sitemap.php';
+        http_response_code(404);
+        echo '<?xml version="1.0" encoding="UTF-8"?><error>Sitemap not found</error>';
+    }
+    exit;
+}
+
+// Handle llms.txt for AI / LLM discoverability
+if ($route === 'llms.txt' || $route === 'llms-full.txt') {
+    header('Content-Type: text/plain; charset=utf-8');
+    $llmFile = __DIR__ . '/' . $route;
+    if (file_exists($llmFile)) {
+        readfile($llmFile);
+    } else {
+        http_response_code(404);
     }
     exit;
 }
@@ -33,7 +46,7 @@ if ($route === 'robots.txt') {
     if (file_exists(__DIR__ . '/robots.txt')) {
         readfile(__DIR__ . '/robots.txt');
     } else {
-        echo "User-agent: *\nAllow: /\nSitemap: https://pdftoexcel.in/sitemap.xml\n";
+        echo "User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /data/\nDisallow: /includes/\nDisallow: /admin\nSitemap: https://pdftoexcel.in/sitemap.xml\n";
     }
     exit;
 }
@@ -47,9 +60,37 @@ if ($route === 'api/rate' || $route === 'api/rate.php') {
     require __DIR__ . '/api/rate.php';
     exit;
 }
+if ($route === 'api/contact' || $route === 'api/contact.php') {
+    require __DIR__ . '/api/contact.php';
+    exit;
+}
+
+// Handle Admin Dashboard (Protected Portal)
+if ($route === 'admin' || $route === 'admin.php') {
+    require __DIR__ . '/pages/admin.php';
+    exit;
+}
+
+// 301 Redirect direct /pages/ requests to clean URLs
+if (strpos($route, 'pages/') === 0) {
+    $cleanSlug = preg_replace('/^pages\//', '', $route);
+    $cleanSlug = preg_replace('/\.php$/', '', $cleanSlug);
+    header("Location: https://pdftoexcel.in/" . $cleanSlug, true, 301);
+    exit;
+}
+
+// 301 Redirect /index.php to root canonical
+if ($route === 'index.php') {
+    header("Location: https://pdftoexcel.in/", true, 301);
+    exit;
+}
+
+// Initialize database helper and log visitor page view for self-hosted analytics
+require_once __DIR__ . '/includes/db.php';
+Database::logPageView($requestUri);
 
 // Route Root to Homepage
-if ($route === '' || $route === 'index.php') {
+if ($route === '') {
     require __DIR__ . '/index.php';
     exit;
 }
@@ -61,13 +102,23 @@ if (file_exists($pageFile)) {
     exit;
 }
 
-// 404 Not Found Page
+// Serve existing static file in root if requested (e.g., google verification files)
+if (is_file(__DIR__ . '/' . $route)) {
+    $mime = mime_content_type(__DIR__ . '/' . $route) ?: 'text/html';
+    header("Content-Type: $mime");
+    readfile(__DIR__ . '/' . $route);
+    exit;
+}
+
+// 404 Not Found Page (Noindex, Nofollow, No Canonical, No Tool Schema)
 http_response_code(404);
+$is404 = true;
 $pageTitle = "Page Not Found - 404 Error | PDFtoExcel.in";
 $pageDesc = "The page you are looking for does not exist or has been moved.";
-$canonicalUrl = "https://pdftoexcel.in/404";
+$canonicalUrl = null;
 $mainKeyword = "404";
 $supportingKeywords = [];
+$toolConfig = null; // Do not render converter tool on 404
 
 require __DIR__ . '/includes/header.php';
 ?>

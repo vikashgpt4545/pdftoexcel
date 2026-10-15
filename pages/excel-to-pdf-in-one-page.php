@@ -3,8 +3,8 @@
  * PDFtoExcel.in - Page 22: Convert Excel to PDF in One Page
  */
 
-$pageTitle = "Convert Excel to PDF in One Page Free - Fit All Columns";
-$pageDesc = "Convert Excel to PDF in one page free online. Fit all spreadsheet columns on a single PDF page without splitting tables. 100% private, instant download.";
+$pageTitle = "Convert Excel to PDF in One Page - Fit All Columns (Free)";
+$pageDesc = "Convert Excel to PDF in one page free. Automatically fit all spreadsheet columns on 1 single page with zero table splits or cutoffs. 100% private & fast.";
 $canonicalUrl = "https://pdftoexcel.in/excel-to-pdf-in-one-page";
 $mainKeyword = "excel to pdf in one page";
 

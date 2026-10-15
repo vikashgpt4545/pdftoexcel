@@ -356,7 +356,7 @@ summary(dataset)
                 </pre>
 
                 <p>
-                    For scenarios where users need to explore the data in Excel before exporting to CSV, our platform functions as a versatile <strong>pdf to csv excel converter</strong>, allowing you to choose <strong>pdf to excel or csv</strong> depending on your target workflow. You can also review our core <a href="/">PDF to Excel</a> tool for visual table inspection.
+                    For scenarios where users need to explore the data in Excel before exporting to CSV, our platform functions as a versatile <strong>pdf to csv excel converter</strong>, allowing you to choose <strong>pdf to excel or csv</strong> depending on your target workflow. You can also review our core <a href="/">PDF to Excel</a> tool for visual table inspection, or convert Microsoft Word tabular reports directly using our <a href="/word-to-excel"><strong>Word to Excel converter</strong></a>.
                 </p>
 
                 <h3>Key Enterprise Use Cases for PDF to CSV Conversion</h3>
@@ -427,7 +427,7 @@ summary(dataset)
                 </div>
 
                 <p>
-                    Explore our complementary document utilities, including our <a href="/excel-to-pdf">excel to pdf</a> publisher, our <a href="/pdf-to-excel-converter-free">free PDF to Excel</a> converter, and our core <a href="/">PDF to Excel</a> tool to maintain total mastery over your digital documents.
+                    Explore our complementary document utilities, including our <a href="/excel-to-pdf">Excel to PDF</a> publisher, our high-capacity <a href="/large-pdf-to-excel-converter"><strong>Large PDF to Excel converter (50MB+)</strong></a>, and our core <a href="/">PDF to Excel</a> tool to maintain total mastery over your digital documents.
                 </p>
             </div>
         </div>

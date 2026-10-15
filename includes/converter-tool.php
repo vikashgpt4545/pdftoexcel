@@ -172,6 +172,49 @@ $cfg = array_merge($defaultConfig, $toolConfig ?? []);
             File will be deleted from memory in 60 minutes for your privacy.
         </div>
     </div>
+
+    <!-- Error State (Hidden Initially) -->
+    <div class="error-panel" id="errorPanel" style="display: none; padding: 32px 20px; text-align: center;">
+        <div class="error-icon-box" style="width: 56px; height: 56px; margin: 0 auto 16px; border-radius: 50%; background: #fee2e2; display: flex; align-items: center; justify-content: center; color: #dc2626;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+        </div>
+        <h4 class="error-title" id="errorTitle" style="font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 8px;">Conversion Error</h4>
+        <p class="error-desc" id="errorDesc" style="color: #64748b; font-size: 0.95rem; max-width: 480px; margin: 0 auto 20px; line-height: 1.5;"></p>
+        <div class="error-actions" style="display: flex; justify-content: center;">
+            <button type="button" class="btn btn-convert-another" id="errorTryAgainBtn" style="display: inline-flex; align-items: center; gap: 8px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                Try Another File
+            </button>
+        </div>
+    </div>
+
+    <!-- Password Prompt Modal State (Hidden Initially) -->
+    <div class="password-modal-panel" id="passwordModalPanel" style="display: none; padding: 28px 20px; text-align: center;">
+        <div class="password-icon-box" style="width: 52px; height: 52px; margin: 0 auto 14px; border-radius: 50%; background: #eff6ff; display: flex; align-items: center; justify-content: center; color: #2563eb;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+        </div>
+        <h4 class="password-title" style="font-size: 1.25rem; font-weight: 700; color: #1e293b; margin-bottom: 6px;">Password Protected PDF</h4>
+        <p class="password-desc" style="color: #64748b; font-size: 0.92rem; max-width: 440px; margin: 0 auto 16px; line-height: 1.5;">This document is encrypted. Enter the document password to decrypt and extract tables to Excel.</p>
+        <div id="passwordErrorMsg" style="display: none; color: #dc2626; font-size: 0.88rem; font-weight: 600; margin-bottom: 12px; background: #fee2e2; padding: 6px 12px; border-radius: 6px; max-width: 360px; margin-left: auto; margin-right: auto;"></div>
+        <div class="password-input-group" style="max-width: 360px; margin: 0 auto 16px; display: flex; gap: 8px;">
+            <input type="password" id="pdfPasswordInput" class="form-control" placeholder="Enter document password" style="flex: 1; padding: 10px 14px; border: 1.5px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none;" autocomplete="off">
+        </div>
+        <div class="password-actions" style="display: flex; gap: 10px; justify-content: center;">
+            <button type="button" class="btn btn-secondary" id="cancelPasswordBtn" style="padding: 10px 18px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; color: #475569; font-weight: 600; cursor: pointer;">Cancel</button>
+            <button type="button" class="btn btn-primary" id="submitPasswordBtn" style="padding: 10px 22px; border: none; border-radius: 8px; background: #2563eb; color: #fff; font-weight: 600; cursor: pointer;">Unlock & Convert</button>
+        </div>
+        <div class="password-privacy-note" style="margin-top: 14px; font-size: 0.8rem; color: #94a3b8; display: flex; align-items: center; justify-content: center; gap: 6px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>Password is processed only in volatile client memory and never transmitted or saved.</span>
+        </div>
+    </div>
 </div>
 
 <!-- On-Page Review Rating Widget (Triggers Google Rich Snippet Stars) -->
